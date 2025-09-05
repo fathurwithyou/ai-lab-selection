@@ -30,3 +30,12 @@ Untuk klasifikasi, prediksi akhir dihasilkan melalui voting mayoritas dari predi
 ### 4. **Kalkulasi Feature Importance**
 
 Feature importance dihitung berdasarkan total penurunan impurity (misalnya Gini) yang dikaitkan dengan fitur tersebut di seluruh pohon. Skor ini kemudian dinormalisasi terhadap total penurunan impurity semua fitur.
+
+### 5. **Perbandingan**
+Performa model from scratch jauh di bawah versi Scikit-learn:
+
+Kemungkinan implementasi from scratch tidak menggunakan pembobotan atau bootstrap sampling secara optimal.
+
+Scikit-learn menggunakan berbagai teknik seperti feature bagging, max_depth, dan n_estimators yang sangat mempengaruhi performa.
+
+Versi from scratch tampaknya mengalami bias ke kelas mayoritas, ditunjukkan dari recall 0.05 untuk kelas 0.

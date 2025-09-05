@@ -98,3 +98,10 @@ P(y=k \mid x) = \frac{n_k}{\sum_j n_j}
 $$
 
 dengan $n_k$ jumlah sampel kelas $k$ pada simpul daun tempat $x$ jatuh.
+
+## 7. Perbandingan
+Kinerja model sangat mirip antara from scratch dan Scikit-learn. Sedikit keunggulan Scikit-learn mungkin berasal dari:
+
+Penanganan pemangkasan (pruning) otomatis.
+
+Pemilihan threshold split yang lebih cerdas dengan efisiensi memori tinggi.

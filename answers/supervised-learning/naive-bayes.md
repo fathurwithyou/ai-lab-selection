@@ -59,3 +59,10 @@ Prediksi akhir dilakukan dengan memilih kelas dengan log posterior maksimum:
 $$
 \hat{y} = \arg\max_c \log p(y=c \mid x)
 $$
+
+## 5. Perbandingan
+Performa kedua model identik. Ini wajar karena Gaussian Naive Bayes relatif sederhana dan deterministic:
+
+Tidak ada parameter yang dioptimasi melalui iterasi.
+
+Hanya menghitung mean dan variansi setiap fitur untuk setiap kelas.

@@ -93,3 +93,10 @@ Prediksi kelas akhir dilakukan berdasarkan ambang batas 0.5:
 $$
 \text{predict}(X) = \mathbb{1}\left[\text{predict\_proba}(X) \ge 0.5\right]
 $$
+
+## 6. Perbandingan
+Performa kedua implementasi sangat serupa. Perbedaan kecil kemungkinan berasal dari:
+
+Teknik regularisasi (misalnya penalti L2) yang mungkin tidak diimplementasikan pada versi from scratch.
+
+Konvergensi yang lebih cepat dan stabil dari solver di Scikit-learn.
