@@ -1,6 +1,6 @@
+from .clustermixin import ClusterMixin
 from .dbscan import DBSCAN
 from .kmeans import KMeans
 from .pca import PCA
-from .clustermixin import ClusterMixin
 
-__all__ = ["DBSCAN", "PCA", "KMeans", "ClusterMixin"]
+__all__ = ["DBSCAN", "PCA", "ClusterMixin", "KMeans"]

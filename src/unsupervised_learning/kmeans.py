@@ -1,6 +1,8 @@
 import numpy as np
 
-from ..base_estimator import BaseEstimator
+import sys
+sys.path.append('..')
+from base_estimator import BaseEstimator
 
 
 class KMeans(BaseEstimator):

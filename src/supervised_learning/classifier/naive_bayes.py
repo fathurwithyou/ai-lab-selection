@@ -24,9 +24,9 @@ class GaussianNaiveBayes(ClassifierMixin, BaseEstimator):
         self.classes = None
         self.class_count = None
         self.class_prior = None
-        self.theta = None  # Mean of each feature per class
-        self.sigma = None  # Variance of each feature per class
-        self.epsilon = None  # Smoothing parameter
+        self.theta = None
+        self.sigma = None
+        self.epsilon = None
 
     def fit(self, X, y):
         """
@@ -42,31 +42,23 @@ class GaussianNaiveBayes(ClassifierMixin, BaseEstimator):
         X = np.array(X)
         y = np.array(y)
 
-        # Get unique classes and their counts
         self.classes, counts = np.unique(y, return_counts=True)
         n_classes = len(self.classes)
         n_features = X.shape[1]
 
-        # Store class counts and priors
         self.class_count = counts
         self.class_prior = counts / len(y)
 
-        # Initialize mean and variance arrays
         self.theta = np.zeros((n_classes, n_features))
         self.sigma = np.zeros((n_classes, n_features))
 
-        # Calculate mean and variance for each class and feature
         for i, class_label in enumerate(self.classes):
-            # Get samples for current class
             class_mask = y == class_label
             X_class = X[class_mask]
 
-            # Calculate mean and variance
             self.theta[i] = np.mean(X_class, axis=0)
             self.sigma[i] = np.var(X_class, axis=0)
 
-        # Add smoothing to prevent numerical issues
-        # Use a portion of the largest variance as smoothing
         self.epsilon = self.var_smoothing * np.var(X, axis=0).max()
         self.sigma += self.epsilon
 
@@ -88,17 +80,11 @@ class GaussianNaiveBayes(ClassifierMixin, BaseEstimator):
         log_likelihood = np.zeros((n_samples, n_classes))
 
         for i in range(n_classes):
-            # Calculate log probability density for each feature
-            # Using log of Gaussian PDF: log(1/sqrt(2*pi*sigma^2)) - (x-mu)^2/(2*sigma^2)
-
-            # Log normalization constant
             log_norm = -0.5 * np.sum(np.log(2 * np.pi * self.sigma[i]))
 
-            # Log exponential term
             diff_squared = (X - self.theta[i]) ** 2
             log_exp = -0.5 * np.sum(diff_squared / self.sigma[i], axis=1)
 
-            # Combined log likelihood
             log_likelihood[:, i] = log_norm + log_exp
 
         return log_likelihood
@@ -122,15 +108,11 @@ class GaussianNaiveBayes(ClassifierMixin, BaseEstimator):
         if self.classes is None:
             raise ValueError("Model must be fitted before making predictions")
 
-        # Calculate log likelihood
         log_likelihood = self._calculate_log_likelihood(X)
 
-        # Add log prior
         log_prior = self._calculate_class_log_prior()
         log_posterior = log_likelihood + log_prior
 
-        # Normalize (subtract log of marginal probability)
-        # Use log-sum-exp trick for numerical stability
         log_marginal = np.logaddexp.reduce(log_posterior, axis=1, keepdims=True)
         log_proba = log_posterior - log_marginal
 
